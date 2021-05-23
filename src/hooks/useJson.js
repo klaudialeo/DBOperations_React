@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react';
 
 const getJson = async function (path) {
-    let response = await fetch("http://localhost:8080" + path);
-    return response.json().then(parsed => {
-        return parsed;
+    return fetch("http://localhost:8080" + path).then(response => {
+        if (response.ok) {
+            return response.json().then(parsed => {
+                return parsed;
+            }).catch((e) => {
+                console.log(e);
+            })
+        }
     }).catch((e) => {
         console.log(e);
     })
