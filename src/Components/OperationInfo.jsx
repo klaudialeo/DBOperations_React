@@ -17,12 +17,28 @@ const TableCell = withStyles({
     }
 })(MuiTableCell);
 
+const Row = (props) => {
+    const { caption, value } = props;
+
+    const names = {
+        code: "Abkürzung",
+        name: "Name",
+        shortName: "Kurzname",
+        type: "Typ"
+    }
+
+    return (
+        <TableRow>
+            <TableCell component="th" scope="row">{names[caption]}:</TableCell>
+            <TableCell align="right">{value ? value : "Nicht gefunden"}</TableCell>
+        </TableRow>
+    )
+}
+
 export default function OperationInfo(props) {
     const code = props.code
 
     const [data, loading, error] = useJson("/betriebsstelle/" + code);
-
-    const NOT_FOUND = "Nicht gefunden";
 
     return (
         <>
@@ -32,24 +48,12 @@ export default function OperationInfo(props) {
                 <TableContainer style={{ width: "50vw" }}>
                     <Table aria-label="operation table">
                         <TableHead>
-                            <TableRow key="code">
-                                <TableCell component="th" scope="row">Abkürzung:</TableCell>
-                                <TableCell align="right">{code}</TableCell>
-                            </TableRow>
+                            <Row caption="code" value={code}></Row>
                         </TableHead>
                         <TableBody>
-                            <TableRow key="name">
-                                <TableCell component="th" scope="row">Name:</TableCell>
-                                <TableCell align="right">{data.name ? data.name : NOT_FOUND}</TableCell>
-                            </TableRow>
-                            <TableRow key="shortName">
-                                <TableCell component="th" scope="row">Kurzname:</TableCell>
-                                <TableCell align="right">{data.shortName ? data.shortName : NOT_FOUND}</TableCell>
-                            </TableRow>
-                            <TableRow key="type">
-                                <TableCell component="th" scope="row">Typ:</TableCell>
-                                <TableCell align="right">{data.type ? data.type : NOT_FOUND}</TableCell>
-                            </TableRow>
+                            {Object.entries(data).map(([key, value]) => (
+                                <Row key={key} caption={key} value={value}></Row>
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
