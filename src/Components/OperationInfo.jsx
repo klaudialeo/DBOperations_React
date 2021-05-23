@@ -1,5 +1,4 @@
 import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -10,6 +9,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import useJson from '../hooks/useJson'
 import Error from "./Error"
+import Loading from "./Loading"
 
 const TableCell = withStyles({
     root: {
@@ -42,8 +42,8 @@ export default function OperationInfo(props) {
 
     return (
         <>
-            { loading && <CircularProgress />}
-            { error && <Error message={error}></Error>}
+            { loading && <Loading />}
+            { error && <Error message={error} />}
             { data &&
                 <TableContainer style={{ width: "50vw" }}>
                     <Table aria-label="operation table">

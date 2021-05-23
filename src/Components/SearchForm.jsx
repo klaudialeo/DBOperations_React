@@ -4,10 +4,11 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Box from '@material-ui/core/Box';
 
 import OperationInfo from './OperationInfo'
 import Error from "./Error"
+import Loading from "./Loading"
 import useJson from '../hooks/useJson'
 
 const useStyles = makeStyles(() => ({
@@ -29,8 +30,17 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
+const textStyles = makeStyles(() => ({
+    root: {
+        "& label.Mui-focused": {
+            color: 'red'
+        },
+    }
+}));
+
 export default function SearchForm(props) {
     const classes = useStyles();
+    const textClasses = textStyles();
 
     const [options, loading, error] = useJson("/betriebsstelle");
 
@@ -67,8 +77,8 @@ export default function SearchForm(props) {
 
     return (
         <>
-            { loading && <CircularProgress />}
-            { error && <Error message={error}></Error>}
+            { loading && <Loading />}
+            { error && <Error message={error} />}
             { options &&
                 <form onSubmit={handleSubmit} method="GET">
                     <div style={{ display: 'flex' }}>
@@ -88,6 +98,7 @@ export default function SearchForm(props) {
                                         label="Suche nach Abkürzung"
                                         variant="outlined"
                                         fullWidth
+                                        className={textClasses.root}
                                     />
                                 );
                             }}
@@ -100,7 +111,11 @@ export default function SearchForm(props) {
                     </div>
                 </form>
             }
-            { code && <OperationInfo code={code} />}
+            { code &&
+                <Box mt={1}>
+                    <OperationInfo code={code} />
+                </Box>
+            }
         </>
     );
 }
