@@ -1,24 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
+import React from 'react';
+import SearchForm from './Components/SearchForm.jsx';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="bg-image">
+        <div className="logo-image">
+          <img src="db_logo.png" type="image/png" alt="DB Logo" style={{ height: '50px', margin: '10px' }}></img>
+        </div>
+      </div>
+      <div className="search-form">
+        <SearchForm />
+      </div>
+    </>
   );
 }
 
