@@ -51,6 +51,7 @@ export default function SearchForm(props) {
         if (e.target.value?.length > 0) {
             setOpen(true)
         } else {
+            setCode('')
             setOpen(false)
         }
     }
