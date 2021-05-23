@@ -20,16 +20,9 @@ const TableCell = withStyles({
 const Row = (props) => {
     const { caption, value } = props;
 
-    const names = {
-        code: "Abkürzung",
-        name: "Name",
-        shortName: "Kurzname",
-        type: "Typ"
-    }
-
     return (
         <TableRow>
-            <TableCell component="th" scope="row">{names[caption]}:</TableCell>
+            <TableCell component="th" scope="row">{caption}:</TableCell>
             <TableCell align="right">{value ? value : "Nicht gefunden"}</TableCell>
         </TableRow>
     )
@@ -48,7 +41,7 @@ export default function OperationInfo(props) {
                 <TableContainer style={{ width: "50vw" }}>
                     <Table aria-label="operation table">
                         <TableHead>
-                            <Row caption="code" value={code}></Row>
+                            <Row caption="Code" value={code}></Row>
                         </TableHead>
                         <TableBody>
                             {Object.entries(data).map(([key, value]) => (
